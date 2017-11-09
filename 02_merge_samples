@@ -1,1 +1,2 @@
 cat samples_JPT.txt samples_CHB.txt > Asian_combined_samples.txt
+#remember which pop came first so it is the same when merging expression files
