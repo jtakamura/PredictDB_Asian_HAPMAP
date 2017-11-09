@@ -1,4 +1,4 @@
-
+#From Laurn S. Mogil##
 #!/bin/bash
 #PBS -N Run_run_files
 #PBS -S /bin/bash
@@ -13,4 +13,7 @@ bash  run_files.sh
 
 echo "Hi ${USER}, your script ran!" > testjob_output2.txt
 echo "Congratulations, you are a superstar!" >> testjob_output2.txt
-
+ 
+#bash command in order to run all files
+#call on run_files.sh to run it
+#use bash Run_run_files.sh to run it from the terminal
