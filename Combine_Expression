@@ -1,0 +1,11 @@
+library(dplyr)
+library(ggplot2)
+CHB_expression <- read.table("/home/jennifer/expression_files/CHB_expression_ens.txt", header=T)
+JPT_expression <- read.table("/home/jennifer/expression_files/JPT_expression_ens.txt", header =T)
+Combined_expression <- merge(JPT_expression,CHB_expression,by="PROBE_ID")
+write.table(Combined_expression, file="/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/2_Asian_expression_ens.txt",quote=F,row.names=F, 
+
+
+asianpcs<-read.table("/home/jennifer/Asian_PC_2.txt", header = T)
+
+
