@@ -1,0 +1,1 @@
+Rscript expr_to_transposed_RDS.R ../data/input/expression_phenotypes/2_Asian_expression_ens.txt ../data/intermediate/expression_phenotypes/2_Asian_expression_ens.RDS ../data/input/expression_phenotypes/asianpcs.txt 
