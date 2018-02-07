@@ -1,0 +1,30 @@
+ CHB_expression <- read.table("/home/jennifer/expression_files/CHB_expression_ens.txt", header=T)
+> JPT_expression <- read.table("/home/jennifer/expression_files/JPT_expression_ens.txt", header =T)
+> Combined_expression <- merge(JPT_expression,CHB_expression,by="PROBE_ID")
+> write.table(Combined_expression, file="/home/jennifer/expression_files/2_Asian_expression_ens.txt",quote=F,row.names=F,sep="\t")
+> View(Combined_expression)
+> write.table(Combined_expression, file="/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/2_Asian_expression_ens.txt",quote=F,row.names=F,sep="\t")
+> asianpcs<-read.table("/home/jennifer/Asian_PC_2.txt", header = T)
+> View(asianpcs)
+> cols<-c(1:2,4:17)
+> asianpcs2<-asianpcs[cols,]
+> cols<-c(1:2,4:14)
+> asianpcs2<-asianpcs[,cols]
+> View(asianpcs2)
+> asianpcs3<-asianpcs2[colnames(Combined_expression),]
+> View(asianpcs3)
+> View(asianpcs3)
+> asianpcs3<-asianpcs2[colnames(Combined_expression) %in% asianpcs2$FID.x,]
+> View(asianpcs3)
+> asianpcs4<-asianpcs2[order(colnames(Combined_expression)),]
+> View(asianpcs4)
+> asianpcs5<-asianpcs4[-1,]
+> View(asianpcs5)
+> View(asianpcs4)
+> Combined_expressiontest<-Combined_expression[,-1]
+> View(Combined_expressiontest)
+> asianpcs4<-asianpcs2[order(colnames(Combined_expression)),]
+> View(asianpcs4)
+> View(asianpcs5)
+> write.table(asianpcs5, "/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/asianpcs.txt", row.names = F, quote = F, sep = " ")
+> View(asianpcs5)
