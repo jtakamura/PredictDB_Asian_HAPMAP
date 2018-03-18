@@ -1,0 +1,1 @@
+ python PrediXcan.py --predict --dosages /home/jennifer/PrediXcan --dosages_prefix chr --samples samples.txt --weights /home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/output/dbs/Asian_HAPMAP_alpha0.5_window1e6.db --output_dir /home/jennifer/PrediXcan/Cebu_Results
