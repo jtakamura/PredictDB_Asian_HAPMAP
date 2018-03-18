@@ -1,5 +1,6 @@
 ###Lauren S. Mogil###
 ###make MESA data in the correct format for predictDB###
+##USE FOR ONE POPULATION
 
 import gzip
 import sys
