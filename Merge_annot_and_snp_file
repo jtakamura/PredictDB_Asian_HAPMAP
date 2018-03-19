@@ -1,0 +1,7 @@
+head -n 1 /home/jennifer/path/Asian_22_annotation.txt > /home/home/jennifer/path/header      #pulls header from one of the files
+
+cat /home/jennifer/path/Asian_*_annotation.txt > /home/jennifer/path/o      #concatinates all files together and puts into dummy file named 'o'
+grep -v Chr /home/jennifer/path/o> /home/jennifer/path/p				#removes all lines that start with 'Chr' and puts into dummy file 'p' change based on header/type of file you're concatenating 
+cat /home/jennifer/path/header /home/jennifer/path/p > /home/jennifer/path/Asian_1-22_annotation.txt    #places header on top of 'p' and outputs to final file
+rm /home/jennifer/path/o /home/jennifer/path/p                          #remove dummy files 
+
