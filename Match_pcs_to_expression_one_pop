@@ -1,0 +1,2 @@
+LWK_expression <- read.table("Z:/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/LWK_expression_ens.txt")
+LWK_pcs <- read.table("Z:/home/jennifer/PCA_txt/LWK_PCA.txt")
