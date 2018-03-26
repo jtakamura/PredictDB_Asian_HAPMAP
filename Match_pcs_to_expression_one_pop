@@ -1,2 +1,8 @@
-LWK_expression <- read.table("Z:/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/LWK_expression_ens.txt")
-LWK_pcs <- read.table("Z:/home/jennifer/PCA_txt/LWK_PCA.txt")
+pcs <- read.table("Z:/home/jennifer/PCA/PCA_txt/LWK_PCA.txt")
+expression <- read.table("Z:/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/LWK_expression_ens.txt")
+write.table(expression, file="Z:home/jennifer/combine_PCA_expression/LWK",quote = F, row.names=F, sep="t/")
+cols <- c(1:2,4:14)
+pcs2 <- pcs[cols,]
+pcs4 <- pcs2[order(colnames(expression)),]
+pcs5<- pcs4[-1,]
+write.table(pcs5,/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/LWK_pcs.txt", row.names = F, quote = F, sep = " ")
