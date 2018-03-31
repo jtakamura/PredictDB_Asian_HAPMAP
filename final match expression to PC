@@ -8,4 +8,4 @@ pcs2 <- pcs[,cols]
 pcs4 <- pcs2[order(colnames(new_expression)),]
 pcs5<- pcs4[-1,]
 #write.table(pcs5, "/home/jennifer/PredictDB/run_PredictDB_with_pops/PredictDBPipeline_example/data/input/expression_phenotypes/LWK_pcs.txt", row.names = F, quote = F, sep = "t/")
-write.table(pcs5, "/home/jennifer/combine_PCA_expression/LWK_pcs.txt", row.names = F, quote = F, sep = "t/")            
+write.table(pcs5, "/home/jennifer/combine_PCA_expression/LWK_pcs.txt", row.names = F, quote = F, sep = "/t")            
