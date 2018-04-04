@@ -36,8 +36,10 @@ splitheader = splitheader.replace("]", "")
 splitheader = splitheader.replace("[", "")
 splitheader = splitheader.replace(" ", "")
 splitheader = splitheader.replace(",", "\t") #make tab delim file 
-head = "id\t" + splitheader #add label for ids
+head = "rsid\t" + splitheader #add label for ids
 snp_file.write(head + "\n")
+
+###CHANGE IN HEAD FROM "id/t" to "rsid/t"#############
 	
 for line in open(dosage):
 	arr=line.strip().split()
