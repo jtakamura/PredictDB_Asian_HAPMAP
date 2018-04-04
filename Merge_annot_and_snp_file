@@ -5,3 +5,8 @@ grep -v Chr /home/jennifer/path/o> /home/jennifer/path/p				#removes all lines t
 cat /home/jennifer/path/header /home/jennifer/path/p > /home/jennifer/path/Asian_1-22_annotation.txt    #places header on top of 'p' and outputs to final file
 rm /home/jennifer/path/o /home/jennifer/path/p                          #remove dummy files 
 
+########################################
+Edited:
+for merging snp files:
+cat MKK_*_2_SNP.txt > o
+cat o > MKK_1-22_snp.txt
