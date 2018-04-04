@@ -10,3 +10,9 @@ Edited:
 for merging snp files:
 cat MKK_*_2_SNP.txt > o
 cat o > MKK_1-22_snp.txt
+
+for merging annot files:
+head -n 1 MKK_22_2_SNPs_Location.txt > header
+cat MKK_*_2_SNPs_Location.txt > o
+grep -v Chr o > p
+cat header p > MKK_1-22_annot.txt
