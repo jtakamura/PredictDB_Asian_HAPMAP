@@ -1,0 +1,13 @@
+##remove the extra snp in the snp file that is not in the genotype file
+##6/1/18
+A <- read.table("/home/jennifer/new_PredDB/elastic_net/prepare_data/genotypes/head1", header= T)
+B <- read.table("/home/jennifer/new_PredDB/elastic_net/prepare_data/genotypes/head2", header = T)
+colnames(A) <- "rsid"
+setdiff(B$rsid, A$rsid)
+##chr12 difference [1] "12_10574438_T_C_b37"
+C<- read.table("/home/jennifer/new_PredDB/elastic_net/prepare_data/genotypes/head3", header= T)
+D<- read.table("/home/jennifer/new_PredDB/elastic_net/prepare_data/genotypes/head4", header = T)
+colnames(D) <- "rsid"
+which(B$rsid =="12_10574438_T_C_b37")
+##find which row number is different, BUT have to add one because does not include the header
+
