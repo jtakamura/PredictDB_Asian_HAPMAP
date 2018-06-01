@@ -1,5 +1,36 @@
-##remove the extra snp in the snp file that is not in the genotype file
+##Steps for new Pipeline
+#1 Copy scripts from Github
+#2 Edit genotype files to pull the correct columns and have the right headers
+#3 Use scripts to separate the genotype and snp files
+#4 Edit text files
+#5 Edit pop_train_combos.R
+#6 Edit gtex_v7_nested_cv_elnet.R
+#7 Edit pop_train_models_combos.pbs
+#8 Edit and run train_models_jobs_combo.sh
+#9 Edit and run make_dbs.R
+#10 Edit and run filter_dbs.R
+
+##5/31/18
+awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$7}' Asian_22_annot2.txt > Asian_22_annot.txt
+##pulls the correct columns from the genotype file
+
+head -n 1 /home/jennifer/path/Asian_22_annot.txt > /home/home/jennifer/path/header      #pulls header from one of the files
+grep -v Chr /home/jennifer/path/Asian_1-22_annotation.txt> /home/jennifer/path/p             #removes all lines that start with 'Chr' and puts into dummy file 'p' change based on header/type of file you're concatenating 
+cat /home/jennifer/path/header /home/jennifer/path/p > /home/jennifer/path/Asian_1-22_final_annotation.txt    #places header on top of 'p' and outputs to final file
+##create a new header for the files to match the pipeline
+
+##Notes: Keep 10 pcs and 10 PEER factors for now; use annot2.py and genotype2.py to separate the files
+##Problems: There is a difference between the genotype and snp file for chromosome 12; figure out how to filter out the difference in R; also noted that most of the individual pops did not match in terms of the combined file, so have to recat them all
+
 ##6/1/18
+##look at one specific line in the file
+sed -n 'Xp' filename
+
+##how to look at one row
+awk '{print $1}' Asian_snp.chr15.txt > head3
+awk '{print $3}' Asian_annot.chr15.txt > test4
+
+##remove the extra snp in the snp file that is not in the genotype file
 A <- read.table("/home/jennifer/new_PredDB/elastic_net/prepare_data/genotypes/head1", header= T)
 B <- read.table("/home/jennifer/new_PredDB/elastic_net/prepare_data/genotypes/head2", header = T)
 colnames(A) <- "rsid"
@@ -10,4 +41,9 @@ D<- read.table("/home/jennifer/new_PredDB/elastic_net/prepare_data/genotypes/hea
 colnames(D) <- "rsid"
 which(B$rsid =="12_10574438_T_C_b37")
 ##find which row number is different, BUT have to add one because does not include the header
+
+##Notes:
+##Problems:Chromosome 15 did not run, but the genotype and snp files were the same when compared to each other
+
+
 
