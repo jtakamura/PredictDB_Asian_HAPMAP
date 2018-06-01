@@ -42,6 +42,9 @@ colnames(D) <- "rsid"
 which(B$rsid =="12_10574438_T_C_b37")
 ##find which row number is different, BUT have to add one because does not include the header
 
+##remove row 13557 in Chr12 snp file
+sed -i '13557d' Asian_snp.chr12.txt 
+
 ##Notes:remove row 13557 in the snp file for Chr12 and remove row 69068 in both the genotype file and the snp file for Chr15
 ##Problems:Chromosome 15 did not run, but the genotype and snp files were the same when compared to each other
 
