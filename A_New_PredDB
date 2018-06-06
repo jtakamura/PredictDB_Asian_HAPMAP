@@ -47,5 +47,5 @@ sed -i '13557d' Asian_snp.chr12.txt
 
 ##Notes:remove row 13557 in the snp file for Chr12 and remove row 69068 in both the genotype file and the snp file for Chr15
 ##Problems:edit make_dbs_jenny.R with the correct file paths!! 
-
+##things to do: read paper and edit slide share for labels meeting 6/6/18
 
