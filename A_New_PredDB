@@ -53,3 +53,7 @@ sed -i '13557d' Asian_snp.chr12.txt
 
 ##Problems: need to correct the pcs files in order to have the correct columns - remove column 3
 
+##6/8/18
+##created a bash script to make snp files and annot files for each individual population
+##Problems:must combine each file, pull the correct columns from the file, rename the header, then split
+
