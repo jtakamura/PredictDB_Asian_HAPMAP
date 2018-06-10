@@ -55,5 +55,9 @@ sed -i '13557d' Asian_snp.chr12.txt
 
 ##6/8/18
 ##created a bash script to make snp files and annot files for each individual population
-##Problems:must combine each file, pull the correct columns from the file, rename the header, then split
+##Problems:hadto rename one of the headers from id to rsid, then must combine each file, pull the correct columns from the file, rename the header, then split
+
+##6/10/18
+##Problems: issues with merging the snp files correctly, so causing an error when trying to split them using split_genotypes2.py, must recombine and fix
+##can I just cat them all?? Try on Tuesday
 
