@@ -67,3 +67,9 @@ tail -n +2 CHB_1-22_final.annot.txt > nohead
 cat header nohead > CHB_1-22_use_annot.txt
 ##dont know why, but when use grep, it removes about 21 lines for some reason
 
+##to merge snp files:
+head -n 1 CHB_22_SNP.txt > snphead
+tail -n +2 -q CHB_*_SNP.txt >> snphead
+cat snphead > CHB_1-22_snp.txt
+
+##problems: good ol' chromosome 12 again.....
