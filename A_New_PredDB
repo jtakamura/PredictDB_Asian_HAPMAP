@@ -61,3 +61,9 @@ sed -i '13557d' Asian_snp.chr12.txt
 ##Problems: issues with merging the snp files correctly, so causing an error when trying to split them using split_genotypes2.py, must recombine and fix
 ##can I just cat them all?? Try on Tuesday
 
+##6/12/18
+##to change the header of the file, use:
+tail -n +2 CHB_1-22_final.annot.txt > nohead
+cat header nohead > CHB_1-22_use_annot.txt
+##dont know why, but when use grep, it removes about 21 lines for some reason
+
