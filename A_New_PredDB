@@ -62,14 +62,37 @@ sed -i '13557d' Asian_snp.chr12.txt
 ##can I just cat them all?? Try on Tuesday
 
 ##6/12/18
+
+##change columns
+awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$7}' Asian_22_annot2.txt > Asian_22_annot.txt
+
 ##to change the header of the file, use:
 tail -n +2 CHB_1-22_final.annot.txt > nohead
 cat header nohead > CHB_1-22_use_annot.txt
 ##dont know why, but when use grep, it removes about 21 lines for some reason
 
-##to merge snp files:
+##to merge snp files
 head -n 1 CHB_22_SNP.txt > snphead
 tail -n +2 -q CHB_*_SNP.txt >> snphead
 cat snphead > CHB_1-22_snp.txt
 
 ##problems: good ol' chromosome 12 again.....
+
+##6/13/18
+
+##GIH annot final
+cat GIH_*_SNPs_Location.txt > o
+awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$7}' o  > GIH_1-22_annot_wronghead.txt
+tail -n +2 GIH_1-22_annot_wronghead.txt > nohead
+cat header nohead > GIH_1-22_use_annot.txt
+
+###snp file
+head -n 1 GIH_22_SNP.txt > snphead
+tail -n +2 -q GIH_*_SNP.txt >> snphead
+cat snphead > GIH_1-22_snp.txt
+
+head -n 1 GIH_22_SNP.txt > snphead2
+tail -n +2 -q GIH_*_SNP.txt >>snphead2
+
+
+
