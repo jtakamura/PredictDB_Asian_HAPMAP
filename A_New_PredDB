@@ -93,6 +93,10 @@ cat snphead > GIH_1-22_snp.txt
 
 head -n 1 GIH_22_SNP.txt > snphead2
 tail -n +2 -q GIH_*_SNP.txt >>snphead2
-
-
-
+###WHYYYYY???
+Traceback (most recent call last):
+  File "split_genotype2.py", line 66, in <module>
+    split_genotype(genotype_file, out_prefix)
+  File "split_genotype2.py", line 42, in split_genotype
+    refAllele = varID_list[2]
+IndexError: list index out of range
