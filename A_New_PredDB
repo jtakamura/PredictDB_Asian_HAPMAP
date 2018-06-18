@@ -103,4 +103,4 @@ IndexError: list index out of range
 
 ##6/18
 #solution to mismatched chromosome issue:
-#combine files as mentioned above, but run split.annot2.py on CHB_12_SNPs_locatino.txt and then pull the file from that output
+#combine files as mentioned above, but run split.annot2.py on CHB_12_SNPs_location.txt and then pull the file from that output, if that fails, use R to see which line to manually to remove from the file as seen in MKK
