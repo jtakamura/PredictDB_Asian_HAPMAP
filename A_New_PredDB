@@ -104,3 +104,18 @@ IndexError: list index out of range
 ##6/18
 #solution to mismatched chromosome issue:
 #combine files as mentioned above, but run split.annot2.py on CHB_12_SNPs_location.txt and then pull the file from that output, if that fails, use R to see which line to manually to remove from the file as seen in MKK
+
+##GIH annot final
+cat GIH_*_SNPs_Location.txt > o
+awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$7}' o  > GIH_1-22_annot_wronghead.txt
+tail -n +2 GIH_1-22_annot_wronghead.txt > nohead
+cat header nohead > GIH_1-22_use_annot.txt
+
+###snp file
+head -n 1 GIH_22_SNP.txt > snphead
+tail -n +2 -q GIH_*_SNP.txt >> snphead
+cat snphead > GIH_1-22_snp.txt
+
+
+##why MKK?? cannot find the difference between them for some reason using R
+
