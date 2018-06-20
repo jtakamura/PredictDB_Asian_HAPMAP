@@ -1,25 +1,33 @@
 ##Comparing the two files for the ILMN ids and the ENSG ids
-
 ENSG <- read.table("/home/jennifer/MKK_redo/ENSG_header.txt", header = F)
 ILMN <- read.table("/home/jennifer/MKK_redo/ILMN_header.txt", header =F)
+C <- read.table("/home/jennifer/MKK_redo/MKK_p3_expression.txt",header =T,sep="\t")
 ENSG$V1 <- NULL
 ILMN$V1 <- NULL
 ILMN$V2 <- NULL
 ENSG2 <- t(ENSG)                       
 ILMN2 <- t(ILMN)
-colnames(ILMN2) <- "rsid"
-colnames(ENSG2) <- "rsid"
-write.table(ENSG2, file="/home/jennifer/MKK_redo/A.txt",quote=F,row.names=F,sep="\t")
-A<- read.table("/home/jennifer/MKK_redo/A.txt", header = T)
-write.table(ILMN2, file="/home/jennifer/MKK_redo/B.txt",quote=F,row.names=F,sep="\t")
-B<- read.table("/home/jennifer/MKK_redo/B.txt", header = T)
-B[!(B %in% A)]
-setdiff(A, B)
-setdiff(B$rsid, A$rsid)
-#[1] "NA21306" "NA21443" "NA21649"
-which(B$rsid =="NA21306")
-which(B$rsid =="NA21443")
-which(B$rsid =="NA21649")
+write.table(ENSG2, file="/home/jennifer/MKK_redo/ENSG3.txt",quote=F,row.names=F,sep="\t")
+ENSG3<- read.table("/home/jennifer/MKK_redo/ENSG3.txt", header = T)
+write.table(ILMN2, file="/home/jennifer/MKK_redo/ILMN3.txt",quote=F,row.names=F,sep="\t")
+ILMN3<- read.table("/home/jennifer/MKK_redo/ILMN3.txt", header = T)
+setdiff(ILMN3$IID, ENSG3$IID)
+IID <- read.table("MKK_redo/MKK_geno.txt", header =F)
+FID <- read.table("MKK_redo/MKK_geno2.txt", header =F)
+colnames(IID) <- "IID"
+write.table(IID, file="/home/jennifer/MKK_redo/IID.txt",quote=F,row.names=F,sep="\t")
+IID<- read.table("/home/jennifer/MKK_redo/IID.txt", header = T)
+setdiff(IID$IID, ENSG3$IID)
+which(IID$IID =="NA21306")
+which(IID$IID =="NA21443")
+which(IID$IID =="NA21649")
+which(ILMN3$IID =="NA21306")
+which(ILMN3$IID =="NA21443")
+which(ILMN3$IID =="NA21649")
+which(ENSG3$IID =="NA21306")
+which(ENSG3$IID =="NA21443")
+which(ENSG3$IID =="NA21649")
+
 
 ##Found 3 missing in the ENSG file when compared to the ILMN ids
 
@@ -42,3 +50,5 @@ YRI               167           1,505,108
 consensus       1,184           
 
 ##found 3 individuals that were in the oringal gene expression file withe the ILMN ids and are also in the genotype file, but are not in the new gene expression file with the Ensembl ids
+## noticed that there were more people with genotype than gene expression
+##also in the readme, they say that there are 171 individuals when the file has 180
