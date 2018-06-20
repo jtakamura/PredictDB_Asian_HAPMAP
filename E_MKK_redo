@@ -51,4 +51,4 @@ consensus       1,184
 
 ##found 3 individuals that were in the oringal gene expression file withe the ILMN ids and are also in the genotype file, but are not in the new gene expression file with the Ensembl ids
 ## noticed that there were more people with genotype than gene expression
-##also in the readme, they say that there are 171 individuals when the file has 180
+##do the QC first
