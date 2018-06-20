@@ -22,3 +22,23 @@ which(B$rsid =="NA21443")
 which(B$rsid =="NA21649")
 
 ##Found 3 missing in the ENSG file when compared to the ILMN ids
+
+Summary of data content:
+
+population    # of samples      # of polymorphic QC+ SNPs
+---------------------------------------------------------------         
+ASW                83           1,565,172
+CEU               165           1,416,121
+CHB                84           1,332,120
+CHD                85           1,309,662
+GIH                88           1,411,455
+JPT                86           1,300,764
+LWK                90           1,533,540
+MEX                77           1,413,654
+MKK               171           1,541,375
+TSI                88           1,423,618
+YRI               167           1,505,108
+----------------------------------------------------------------                
+consensus       1,184           
+
+
