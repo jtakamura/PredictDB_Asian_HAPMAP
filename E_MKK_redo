@@ -52,3 +52,281 @@ consensus       1,184
 ##found 3 individuals that were in the oringal gene expression file withe the ILMN ids and are also in the genotype file, but are not in the new gene expression file with the Ensembl ids
 ## noticed that there were more people with genotype than gene expression
 ##do the QC first
+
+##6/22
+##people that have genotype data, but do not have gene expression data
+"NA21302" 1
+"NA21309" 4
+"NA21308" 6
+"NA21310" 7
+"NA21313" 10
+"NA21317" 13
+"NA21366" 16
+"NA21361" 19
+"NA21383" 22
+"NA21382" 24
+"NA21386" 25
+"NA21389" 28
+"NA21581" 31
+"NA21391" 33
+"NA21401" 34
+"NA21404" 37
+"NA21425" 40
+"NA21424" 42
+"NA21439" 43
+"NA21442" 46
+"NA21455" 49
+"NA21477" 52
+"NA21480" 55
+"NA21487" 58
+"NA21490" 61
+"NA21494" 64
+"NA21525" 67
+"NA21527" 70
+"NA21514" 73
+"NA21601" 76
+"NA21608" 79
+"NA21636" 82
+"NA21648" 85
+"NA21718" 88
+"NA21306" 95
+"NA21353" 104
+"NA21371" 111
+"NA21443" 125
+"NA21577" 145
+"NA21619" 152
+"NA21649" 157
+"NA21774" 169
+"NA21742" 178
+"NA21743" 179
+"NA21744" 180
+
+genotype <- read.table("/home/jennifer/MKK_redo/MKK.txt")
+geno2 <- genotype[-c(1, 4, 6,7, 10,13,16,19,22, 24, 25,28,31, 33, 34, 37, 40, 42, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85, 88, 95, 104, 111, 125, 145, 152, 157, 168, 178, 179, 180), ]  
+write.table(geno2, file="/home/jennifer/MKK_redo/geno2.txt",quote=F,row.names=F,sep="\t")
+
+##QC for MKK
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile hapmap3_r2_b36_fwd.consensus.qc.poly --missing --out QC
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC.log.
+Options in effect:
+  --bfile hapmap3_r2_b36_fwd.consensus.qc.poly
+  --missing
+  --out QC
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1440616 variants loaded from .bim file.
+1184 people (589 males, 595 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 988 founders and 196 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 6299 het. haploid genotypes present (see QC.hh ); many commands treat
+these as missing.
+Total genotyping rate is 0.997621.
+--missing: Sample missing data report written to QC.imiss, and variant-based
+missing data report written to QC.lmiss.
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile hapmap3_r2_b36_fwd.consensus.qc.poly --geno 0.01 --make-bed --out QC2
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC2.log.
+Options in effect:
+  --bfile hapmap3_r2_b36_fwd.consensus.qc.poly
+  --geno 0.01
+  --make-bed
+  --out QC2
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1440616 variants loaded from .bim file.
+1184 people (589 males, 595 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 988 founders and 196 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 6299 het. haploid genotypes present (see QC2.hh ); many commands treat
+these as missing.
+Total genotyping rate is 0.997621.
+67206 variants removed due to missing genotype data (--geno).
+1373410 variants and 1184 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to QC2.bed + QC2.bim + QC2.fam ... done.
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2 --keep geno2.txt --make-bed --out QC2a
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC2a.log.
+Options in effect:
+  --bfile QC2
+  --keep geno2.txt
+  --make-bed
+  --out QC2a
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1373410 variants loaded from .bim file.
+1184 people (589 males, 595 females) loaded from .fam.
+--keep: 134 people remaining.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 649 het. haploid genotypes present (see QC2a.hh ); many commands treat
+these as missing.
+Total genotyping rate in remaining samples is 0.99814.
+1373410 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to QC2a.bed + QC2a.bim + QC2a.fam ... done.
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2a --autosome --make-bed --out QC2b
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC2b.log.
+Options in effect:
+  --autosome
+  --bfile QC2a
+  --make-bed
+  --out QC2b
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1330072 out of 1373410 variants loaded from .bim file.
+134 people (68 males, 66 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998141.
+1330072 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to QC2b.bed + QC2b.bim + QC2b.fam ... done.
+
+jennifer@wheelerlab1:~/MKK_redo$ tail QC2b.bim
+22	rs11705587	0	49528105	A	C
+22	rs13056621	0	49528625	G	A
+22	rs7284680	0	49531259	A	G
+22	rs6009963	0	49532118	C	T
+22	rs28420908	0	49535148	A	G
+22	rs6010077	0	49540311	A	G
+22	rs9628249	0	49552813	A	G
+22	rs3888396	0	49558258	C	T
+22	rs2238837	0	49559741	A	C
+22	rs28729663	0	49565872	A	G
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2b --missing --out QC3
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC3.log.
+Options in effect:
+  --bfile QC2b
+  --missing
+  --out QC3
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1330072 variants loaded from .bim file.
+134 people (68 males, 66 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998141.
+--missing: Sample missing data report written to QC3.imiss, and variant-based
+missing data report written to QC3.lmiss.
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2b --hardy --out QC4
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC4.log.
+Options in effect:
+  --bfile QC2b
+  --hardy
+  --out QC4
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1330072 variants loaded from .bim file.
+134 people (68 males, 66 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998141.
+--hardy: Writing Hardy-Weinberg report (founders only) to QC4.hwe ... done
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2b --indep-pairwise 50 5 0.3 --out QC5a
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC5a.log.
+Options in effect:
+  --bfile QC2b
+  --indep-pairwise 50 5 0.3
+  --out QC5a
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1330072 variants loaded from .bim file.
+134 people (68 males, 66 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998141.
+1330072 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+Pruned 79462 variants from chromosome 1, leaving 32409.
+Pruned 79955 variants from chromosome 2, leaving 31667.
+Pruned 65644 variants from chromosome 3, leaving 26908.
+Pruned 57535 variants from chromosome 4, leaving 24310.
+Pruned 59678 variants from chromosome 5, leaving 24625.
+Pruned 62751 variants from chromosome 6, leaving 24821.
+Pruned 50514 variants from chromosome 7, leaving 21636.
+Pruned 51120 variants from chromosome 8, leaving 21072.
+Pruned 42578 variants from chromosome 9, leaving 18320.
+Pruned 50173 variants from chromosome 10, leaving 20703.
+Pruned 48707 variants from chromosome 11, leaving 19449.
+Pruned 45831 variants from chromosome 12, leaving 19257.
+Pruned 34604 variants from chromosome 13, leaving 15156.
+Pruned 30179 variants from chromosome 14, leaving 13357.
+Pruned 27571 variants from chromosome 15, leaving 13081.
+Pruned 28971 variants from chromosome 16, leaving 14052.
+Pruned 24551 variants from chromosome 17, leaving 12499.
+Pruned 26548 variants from chromosome 18, leaving 12593.
+Pruned 16256 variants from chromosome 19, leaving 8812.
+Pruned 23848 variants from chromosome 20, leaving 11159.
+Pruned 12200 variants from chromosome 21, leaving 6217.
+Pruned 12513 variants from chromosome 22, leaving 6780.
+Pruning complete.  931189 of 1330072 variants removed.
+Marker lists written to QC5a.prune.in and QC5a.prune.out .
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2b --extract QC5a.prune.in --genome --out QC5b
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC5b.log.
+Options in effect:
+  --bfile QC2b
+  --extract QC5a.prune.in
+  --genome
+  --out QC5b
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1330072 variants loaded from .bim file.
+134 people (68 males, 66 females) loaded from .fam.
+--extract: 398883 variants remaining.
+Using up to 11 threads (change this with --threads).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.997942.
+398883 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+IBD calculations complete.  
+Finished writing QC5b.genome .
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2b --het --out QC5c
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC5c.log.
+Options in effect:
+  --bfile QC2b
+  --het
+  --out QC5c
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1330072 variants loaded from .bim file.
+134 people (68 males, 66 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998141.
+1330072 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--het: 1281778 variants scanned, report written to QC5c.het .
