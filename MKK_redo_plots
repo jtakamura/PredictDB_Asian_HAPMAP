@@ -1,0 +1,111 @@
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+"%&%" = function(a,b) paste (a,b,sep="")
+
+##call rate distribution
+lmiss <- read.table("MKK_redo/QC.lmiss", header =T)
+hist(lmiss$F_MISS)
+dim(lmiss)[1]
+table(lmiss$F_MISS<0.01)
+table(lmiss$F_MISS<0.01)/sum(table(lmiss$F_MISS<0.01))
+imiss <- read.table("MKK_redo/QC3.imiss",header=T )
+hist(imiss$F_MISS)
+
+##Hardy Weinberg
+hwe <- read.table("MKK_redo/QC4.hwe", header = T)
+summary(hwe$P)
+hist(hwe$P)
+##Output in /home/angela/px_yri_chol/QC/QC_Plots/HWE.pdf
+##SNPs w/ HWE p < 1e-6
+table(hwe$P<1e-06)
+##percent SNPs w/ HWE p < 1e-6
+table(hwe$P<1e-06)/sum(table(hwe$P<1e-06)) 
+
+#IBD
+ibd <- read.table("MKK_redo/QC5b.genome", header = T)
+ggplot(data=ibd,aes(x=Z0,y=Z1))+geom_point(alpha=1/4)+theme_bw()
+##Output in /home/angela/px_yri_chol/QC/QC_Plots/IBD.pdf
+##pull duplicates
+dups <- data.frame()
+for(i in 1:dim(ibd)[1]){
+  if(as.character(ibd$IID1[i]) == as.character(ibd$IID2[i])){
+    dups <- rbind(dups,ibd[i,])
+  }
+}
+dim(dups)
+##Note and pull duplicates and missings
+##In this example, there are neither duplicates nor missings
+toExclude <- as.character(dups$IID1)
+a <- as.character(ibd$IID1) %in% toExclude
+others <- ibd[a==FALSE,]
+dim(others)
+hist(others$PI_HAT)
+##Output in /home/angela/px_yri_chol/QC/QC_Plots/ibd_PI_HAT.pdf
+sortOthers <- others[order(others$PI_HAT, decreasing = TRUE),]
+##Unexpected duplicates:
+filter(others,PI_HAT>=0.2)
+write.table(filter(others,PI_HAT>=0.25), "/home/angela/px_yri_chol/QC/QCStep5/QCStep5b/related.to.remove.txt", quote = FALSE, row.names = FALSE)
+##No rerun in this example b/c no duplicates or missings
+
+
+#Heterozygosity
+HET <- read.table("MKK_redo/QC5c.het",header = T,as.is = T)
+H = (HET$N.NM.-HET$O.HOM.)/HET$N.NM.
+oldpar=par(mfrow=c(1,2))
+hist(H,50)
+hist(HET$F,50)
+summary(HET$F)
+for(i in 1:length(HET$F)){
+  if(HET[i,6] > (mean(HET$F)+3*sd(HET$F))){
+      outliers <- rbind(outliers,sortHET[i,])
+    }
+    if(sortHET[i,6] < (mean(HET$F)-3*sd(HET$F))){
+       outliers <- rbind(outliers,HET[i,])
+    }
+}
+hetoutliers <- select(outliers,FID,IID)
+dim(hetoutliers)
+
+
+
+
+library(dplyr)
+library(ggplot2)
+all.pops <- read.table("/home/jennifer/ElasticNet/PCA/Original/all_pop.txt") %>% select (V1,V2,V7)
+colnames(all.pops) <- c("FID", "IID","population")
+hapmappopinfo <- read.table("/home/wheelerlab1/Data/HAPMAP3_hg19/pop_HM3_hg19_forPCA.txt") %>% select (V1,V3)
+colnames(hapmappopinfo) <- c("pop","IID")
+popkey <- read.table("/home/wheelerlab1/Data/Stranger_et_al_pop_eQTLs/HapMap3-genotypes/relationships_w_pops_121708.txt")  %>% select (V1,V2,V7)
+popkey = popkey[-1,]
+colnames(popkey) <- c("FID","IID","population")
+fam <- read.table("/home/jennifer/MKK_redo/old/QC6c.fam") %>% select (V1,V2)
+colnames(fam) <- c("FID","IID")
+popinfo <- left_join(fam,all.pops,by="IID")
+popinfo <- mutate(popinfo, population=ifelse(is.na(population),'GWAS', as.character(population)))
+table(popinfo$pop)
+#CHB GIH JPT LWK MEX MKK YRI 
+#168 176 172 180 154 342 334 
+
+
+pcs <- read.table("/home/jennifer/MKK_redo/old/QC7.evec",skip=1)
+pcdf <- data.frame(popinfo, pcs[,2:11]) %>% rename (PC1=V2,PC2=V3,PC3=V4,PC4=V5,PC5=V6,PC6=V7,PC7=V8,PC8=V9,PC9=V10,PC10=V11)
+gwas <- filter(pcdf,population=='GWAS')
+hm3 <- filter(pcdf, grepl('NA',IID))
+eval <- scan('/home/jennifer/MKK_redo/old/QC7.eval')[1:10]
+round(eval/sum(eval),3)
+#[1] 0.566 0.108 0.058 0.052 0.038 0.037 0.036 0.035 0.035 0.035
+ggplot() + geom_point(data=gwas,aes(x=PC1,y=PC2,col=population))+geom_point(data = hm3,aes(x=PC1,y=PC2,col=population))+theme_bw() +scale_colour_brewer(palette ="Set1") + scale_shape_manual(values = 0:length(unique(gwas$populations)))
+#saved under PCA1 #Shape_scale_manual allows for more than one color to be plotted 
+ggplot() + geom_point(data=gwas,aes(x=PC1,y=PC3,col=population))+geom_point(data=hm3,aes(x=PC1,y=PC3,col=population))+theme_bw() + scale_colour_brewer(palette = "Set1") + scale_shape_manual(values = 0:length(unique(gwas$populations)))
+#saved under PCA2
+ggplot() + geom_point(data=gwas,aes(x=PC2,y=PC3,col=population))+geom_point(data=hm3,aes(x=PC2,y=PC3,col=population))+theme_bw()+scale_colour_brewer(palette = "Set1") + scale_shape_manual(values = 0:length(unique(gwas$populations)))
+#saved under PCA3
+ggplot() + geom_point(data=gwas,aes(x=PC1,y=PC2,col=population))+geom_point(data=hm3,aes(x=PC1,y=PC2,col=population))+theme_bw() + scale_shape_manual(values = 0:length(unique(gwas$populations)))
+#saved under PCA4
+
+which(pcdf$IID =="NA21306")
+which(pcdf$IID =="NA21443")
+which(pcdf$IID =="NA21649")
+
+##the three individuals that did not have Ensembl ids were filtered out,so there is no problem
