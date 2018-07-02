@@ -330,3 +330,125 @@ Total genotyping rate is 0.998141.
 1330072 variants and 134 people pass filters and QC.
 Note: No phenotypes present.
 --het: 1281778 variants scanned, report written to QC5c.het .
+
+jennifer@wheelerlab1:~/MKK_redo$ plink --bfile QC2 --rel-cutoff 0.125 --make-bed --out QC5b1
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC5b1.log.
+Options in effect:
+  --bfile QC2
+  --make-bed
+  --out QC5b1
+  --rel-cutoff 0.125
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1330072 variants loaded from .bim file.
+1184 people (589 males, 595 females) loaded from .fam.
+Using up to 11 threads (change this with --threads).
+Before main variant filters, 988 founders and 196 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998242.
+1330072 variants and 1184 people pass filters and QC (before --rel-cutoff).
+Note: No phenotypes present.
+Relationship matrix calculation complete.
+1049 people excluded by --rel-cutoff.
+Remaining sample IDs written to QC5b1.rel.id .
+--make-bed to QC5b1.bed + QC5b1.bim + QC5b1.fam ... done.
+
+jennifer@wheelerlab1:~/MKK_redo/old$ plink --bfile QC6a --keep /home/jennifer/MKK_redo/geno2.txt --make-bed --out QC6d
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC6d.log.
+Options in effect:
+  --bfile QC6a
+  --keep /home/jennifer/MKK_redo/geno2.txt
+  --make-bed
+  --out QC6d
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1597187 variants loaded from .bim file.
+483 people (238 males, 245 females) loaded from .fam.
+391 phenotype values loaded from .fam.
+--keep: 92 people remaining.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 92 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 489 het. haploid genotypes present (see QC6d.hh ); many commands treat
+these as missing.
+Total genotyping rate in remaining samples is 0.858219.
+1597187 variants and 92 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to QC6d.bed + QC6d.bim + QC6d.fam ... done.
+jennifer@wheelerlab1:~/MKK_redo/old$ plink --bfile QC6d --geno 0.01 --maf 0.5 --indep-pairwise 50 5 0.3 --recode --out QC6b
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to QC6b.log.
+Options in effect:
+  --bfile QC6d
+  --geno 0.01
+  --indep-pairwise 50 5 0.3
+  --maf 0.5
+  --out QC6b
+  --recode
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+1597187 variants loaded from .bim file.
+92 people (41 males, 51 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 92 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 489 het. haploid genotypes present (see QC6b.hh ); many commands treat
+these as missing.
+Total genotyping rate is 0.858219.
+397511 variants removed due to missing genotype data (--geno).
+1195172 variants removed due to minor allele threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+4504 variants and 92 people pass filters and QC.
+Note: No phenotypes present.
+--recode ped to QC6b.ped + QC6b.map ... done.
+Pruned 60 variants from chromosome 1, leaving 318.
+Pruned 65 variants from chromosome 2, leaving 331.
+Pruned 54 variants from chromosome 3, leaving 260.
+Pruned 68 variants from chromosome 4, leaving 231.
+Pruned 45 variants from chromosome 5, leaving 221.
+Pruned 46 variants from chromosome 6, leaving 222.
+Pruned 38 variants from chromosome 7, leaving 214.
+Pruned 49 variants from chromosome 8, leaving 197.
+Pruned 23 variants from chromosome 9, leaving 182.
+Pruned 39 variants from chromosome 10, leaving 179.
+Pruned 27 variants from chromosome 11, leaving 168.
+Pruned 56 variants from chromosome 12, leaving 189.
+Pruned 37 variants from chromosome 13, leaving 140.
+Pruned 16 variants from chromosome 14, leaving 119.
+Pruned 34 variants from chromosome 15, leaving 126.
+Pruned 32 variants from chromosome 16, leaving 139.
+Pruned 27 variants from chromosome 17, leaving 85.
+Pruned 21 variants from chromosome 18, leaving 106.
+Pruned 11 variants from chromosome 19, leaving 79.
+Pruned 21 variants from chromosome 20, leaving 114.
+Pruned 8 variants from chromosome 21, leaving 50.
+Pruned 10 variants from chromosome 22, leaving 45.
+Pruned 0 variants from chromosome 23, leaving 1.
+Pruned 0 variants from chromosome 25, leaving 1.
+Pruning complete.  787 of 4504 variants removed.
+Marker lists written to QC6b.prune.in and QC6b.prune.out .
+jennifer@wheelerlab1:~/MKK_redo/old$ awk '{print $1,$2,$3,$4,$5,1}' QC6a.fam QC6a.fam > QC6c.fam
+jennifer@wheelerlab1:~/MKK_redo/old$ perl /home/wheelerlab1/Data/GWAS_QC_scripts/make_par_file.pl /home/jennifer/MKK_redo/old/ 0 > /home/jennifer/MKK_redo/old/PCA.par
+jennifer@wheelerlab1:~/MKK_redo/old$ nano PCA.par 
+jennifer@wheelerlab1:~/MKK_redo/old$ smartpca -p PCA.par 
+parameter file: PCA.par
+### THE INPUT PARAMETERS
+##PARAMETER NAME: VALUE
+genotypename: /home/jennifer/MKK_redo/old/QC6b.ped
+snpname: /home/jennifer/MKK_redo/old/QC6b.map
+indivname: /home/jennifer/MKK_redo/old/QC5d.fam
+evecoutname: /home/jennifer/MKK_redo/old/QC7.evec
+evaloutname: /home/jennifer/MKK_redo/old/QC7.eval
+outliername: /home/jennifer/MKK_redo/old/QC7.outlier
+numoutevec: 10
+numoutlieriter: 0
+numoutlierevec: 2
+outliersigmathresh: 6
+## smartpca version: 13050
+norm used
+
