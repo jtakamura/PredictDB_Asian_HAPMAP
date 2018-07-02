@@ -104,6 +104,9 @@ ggplot() + geom_point(data=gwas,aes(x=PC2,y=PC3,col=population))+geom_point(data
 ggplot() + geom_point(data=gwas,aes(x=PC1,y=PC2,col=population))+geom_point(data=hm3,aes(x=PC1,y=PC2,col=population))+theme_bw() + scale_shape_manual(values = 0:length(unique(gwas$populations)))
 #saved under PCA4
 
+#write.table(pcdf, file="/home/jennifer/ElasticNet/PCA/PCA_txt/Asian_PC_2.txt",quote=F,row.names=F,sep="\t")
+write.table(pcdf, file="/home/jennifer/MKK_redo/old/MKK_pcs.txt",quote=F,row.names=F,sep="\t")
+
 which(pcdf$IID =="NA21306")
 which(pcdf$IID =="NA21443")
 which(pcdf$IID =="NA21649")
