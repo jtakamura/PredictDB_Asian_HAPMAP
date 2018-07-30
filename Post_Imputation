@@ -1,3 +1,4 @@
+##from https://www.biostars.org/p/205856/ 
 ##do the same for the rest of the chromosomes, chr22 is being used as an example
 
 jennifer@wheelerlab1:~/Imputation/PostImputation$ plink -vcf chr22.dose.vcf --make-bed --out s1
