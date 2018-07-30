@@ -1,0 +1,139 @@
+##do the same for the rest of the chromosomes, chr22 is being used as an example
+
+jennifer@wheelerlab1:~/Imputation/PostImputation$ plink -vcf chr22.dose.vcf --make-bed --out s1
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to s1.log.
+Options in effect:
+  --make-bed
+  --out s1
+  --vcf chr22.dose.vcf
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+--vcf: s1-temporary.bed + s1-temporary.bim + s1-temporary.fam written.
+652196 variants loaded from .bim file.
+134 people (0 males, 0 females, 134 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to s1.nosex .
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+652196 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to s1.bed + s1.bim + s1.fam ... done
+
+jennifer@wheelerlab1:~/Imputation/PostImputation$ plink --bfile s1 --bmerge s1 --merge-mode 6
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to plink.log.
+Options in effect:
+  --bfile s1
+  --bmerge s1
+  --merge-mode 6
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+134 people loaded from s1.fam.
+134 people to be merged from s1.fam.
+Of these, 0 are new, while 134 are present in the base dataset.
+644940 markers loaded from s1.bim.
+652196 markers to be merged from s1.bim.
+Of these, 0 are new, while 652196 are present in the base dataset.
+Error: 6778 variants with 3+ alleles present.
+* If you believe this is due to strand inconsistency, try --flip with
+  plink.missnp.
+  (Warning: if this seems to work, strand errors involving SNPs with A/T or C/G
+  alleles probably remain in your data.  If LD between nearby SNPs is high,
+  --flip-scan should detect them.)
+* If you are dealing with genuine multiallelic variants, we recommend exporting
+  that subset of the data to VCF (via e.g. '--recode vcf'), merging with
+  another tool/script, and then importing the result; PLINK is not yet suited
+  to handling them.
+  
+  jennifer@wheelerlab1:~/Imputation/PostImputation$ plink --bfile s1 --exclude plink.missnp --make-bed --out s2
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to s2.log.
+Options in effect:
+  --bfile s1
+  --exclude plink.missnp
+  --make-bed
+  --out s2
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+652196 variants loaded from .bim file.
+134 people (0 males, 0 females, 134 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to s2.nosex .
+--exclude: 638175 variants remaining.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+638175 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to s2.bed + s2.bim + s2.fam ... done.
+
+
+jennifer@wheelerlab1:~/Imputation/PostImputation$ plink --bfile s2 --list-duplicate-vars
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to plink.log.
+Options in effect:
+  --bfile s2
+  --list-duplicate-vars
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+638175 variants loaded from .bim file.
+134 people (0 males, 0 females, 134 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to plink.nosex .
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+638175 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--list-duplicate-vars report written to plink.dupvar .
+
+
+jennifer@wheelerlab1:~/Imputation/PostImputation$ plink --bfile s2 --exclude plink.dupvar --make-bed --out s3
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to s3.log.
+Options in effect:
+  --bfile s2
+  --exclude plink.dupvar
+  --make-bed
+  --out s3
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+638175 variants loaded from .bim file.
+134 people (0 males, 0 females, 134 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to s3.nosex .
+--exclude: 638149 variants remaining.
+Warning: At least 13 duplicate IDs in --exclude file.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+638149 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to s3.bed + s3.bim + s3.fam ... done.
+
+jennifer@wheelerlab1:~/Imputation/PostImputation$ plink --bfile s3 --qual-scores chr22.info 7 1 1 --qual-threshold 0.2 --make-bed --out ../plinkout/chr22
+PLINK v1.90b4.3 64-bit (9 May 2017)            www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to ../plinkout/chr22.log.
+Options in effect:
+  --bfile s3
+  --make-bed
+  --out ../plinkout/chr22
+  --qual-scores chr22.info 7 1 1
+  --qual-threshold 0.2
+
+64070 MB RAM detected; reserving 32035 MB for main workspace.
+638149 variants loaded from .bim file.
+134 people (0 males, 0 females, 134 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to ../plinkout/chr22.nosex .
+--qual-scores: 283882 variants remaining, 14047 IDs missing.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 134 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+283882 variants and 134 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to ../plinkout/chr22.bed + ../plinkout/chr22.bim +
+../plinkout/chr22.fam ... done.
