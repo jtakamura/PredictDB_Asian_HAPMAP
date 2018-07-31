@@ -1,10 +1,17 @@
 ##how to make vcf files for Michigan Imputation
 ##use pre-Pruned Data
+##Step 1
 jennifer@wheelerlab1:~$ --bfile /home/jennifer/MKK-redo/QC2b --freq --out newfreq
+##Step 2
 jennifer@wheelerlab1:~$perl HRC-1000G-check-bim.pl -b QC2b.bim -f Imputationfreq.frq -r /home/wheelerlab1/Data/preImputation-check/1000GP_Phase3_combined.legend -g -p AFR
-bash Run-plink.sh 
+#Step 3
+jennifer@wheelerlab1:bash Run-plink.sh 
+#Step 4
 jennifer@wheelerlab1:~$plink --bfile QC2b-updated-chr22 --recode vcf --out MKK-updated-chr22
+#Step 5
 jennifer@wheelerlab1:~$ vcf-sort MKK-updated-chr22.vcf | bgzip -c > MKK-updated-chr22.vcf.gz
+
+##Download the results using wget from the Michigan Imputation site and copying and pasting it into the terminal
 
 ##Unzipping Files from Michigan
 7za x -PQ4A1FSxTd9tpl1 chr_22.zip 
