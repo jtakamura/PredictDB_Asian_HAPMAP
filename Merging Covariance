@@ -1,0 +1,7 @@
+file_list <- list.files("/home/jennifer/new_PredDB/elastic_net/outputs/ASN_covars/")
+for (file in file_list){
+  if (!exists("dataset")){
+  dataset <- read.table(file, header = T, sep = "\t")
+}}
+outfile <- dataset
+write.table(outfile,"/home/jennifer/new_PredDB/elastic_net/outputs/ASN_covars/ASN_covars.txt", row.names = F, quote = F, sep = "\t")
