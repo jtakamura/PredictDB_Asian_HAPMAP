@@ -1,0 +1,16 @@
+sqlite3 ALL_unfiltered_2.db 
+SQLite version 3.19.3 2017-06-08 14:26:16
+Enter ".help" for usage hints.
+sqlite> DELETE FROM 'weights'
+   ...> WHERE gene not in (select gene from extra)
+   ...> ;
+sqlite> .quit
+
+
+sqlite3 ALL_unfiltered_2.db 
+SQLite version 3.19.3 2017-06-08 14:26:16
+Enter ".help" for usage hints.
+sqlite> DELETE FROM 'weights'
+   ...> WHERE gene not in (select gene from extra)
+   ...> ;
+sqlite> .quit
