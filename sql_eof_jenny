@@ -6,7 +6,7 @@
 #PBS -l walltime=150:00:00
 
 #tail -n +2 /home/ryan/mets_analysis/mesa_models/paul_mesa/AFA_hg38_cpos_weights.txt > /home/ryan/mets_analysis/mesa_models/paul_mesa/AFA_hg38_cpos_weights_no_header.txt
-
+#combine the model summaries and the weights files using header and then cat all of them, remove the header afterwards by using tail-n +2 to get the end file
 /usr/local/bin/anaconda2/bin/sqlite3 ALL_unfiltered_2.db <<"EOF"
 .separator "\t"
 CREATE TABLE `extra` (
