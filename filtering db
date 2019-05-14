@@ -1,9 +1,0 @@
-jennifer@wheelerlab3:~/new_PredDB/elastic_net/model_training/revised_scripts$ sqlite3 ALL_unfiltered.db
-SQLite version 3.19.3 2017-06-08 14:26:16
-Enter ".help" for usage hints.
-sqlite> DELETE FROM 'extra'
-   ...> WHERE (zscore_pval  > 0.05 or rho_avg < 0.1);
-sqlite> DELETE FROM 'weights'
-   ...> WHERE gene not in (select gene from 'extra')
-   ...> ;
-sqlite> .quit
